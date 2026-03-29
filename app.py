@@ -7,6 +7,16 @@ from datetime import datetime
 st.set_page_config(page_title="SFE Speaker Notes", page_icon="🎤", layout="wide")
 DATA_FILE = "sfe_data.json"
 
+# --- Universal Questions (asked to every speaker for cross-comparison) ---
+UNIVERSAL_QUESTIONS = [
+    {"id": "readiness", "question": "On a 1-10 scale, how ready is your organization to adopt AI?", "type": "quantitative"},
+    {"id": "workflow_pct", "question": "What percentage of your daily workflows currently involve AI?", "type": "quantitative"},
+    {"id": "tool_count", "question": "How many AI tools does your organization actively use?", "type": "quantitative"},
+    {"id": "weekly_users", "question": "How many employees at your org use AI weekly?", "type": "quantitative"},
+    {"id": "ai_journey", "question": "Where are you in the AI journey: not started / exploring / piloting / scaling / mature?", "type": "categorical"},
+    {"id": "consultant_fix", "question": "If you hired an AI consultant tomorrow, what would you ask them to fix first?", "type": "categorical"},
+]
+
 # --- Default Speaker Data ---
 DEFAULT_SPEAKERS = [
     {
@@ -15,31 +25,36 @@ DEFAULT_SPEAKERS = [
         "date": "2026-03-18",
         "company": "Linden Digital Marketing",
         "role": "Founder",
-        "task_ref": "Task 2 (running doc, first entry)",
+        "task_ref": "Task 1b (running doc, first entry)",
         "bio": "Founder of Linden Digital Marketing, a Rochester-area digital marketing agency.",
+        "company_info": {
+            "industry": "Digital Marketing",
+            "location": "Rochester, NY",
+            "size": "Small business / agency",
+            "founded": "",
+            "website": "",
+            "notes": "Full-service digital marketing agency serving Rochester-area businesses. Services likely include SEO, social media management, content creation, paid advertising, and analytics."
+        },
         "has_conversation_task": False,
-        "ai_usage_prompts": [
-            "AI tools used in her digital marketing work (content generation, analytics, ad targeting, etc.)",
-            "How she positions AI capabilities to clients",
-            "What clients ask for vs. what actually works",
-            "Any tools or platforms she relies on day to day",
-            "Her take on AI replacing vs. augmenting marketing roles"
+        "ai_usage": [
+            {"prompt": "AI tools used in her digital marketing work (content generation, analytics, ad targeting, etc.)", "notes": ""},
+            {"prompt": "How she positions AI capabilities to clients", "notes": ""},
+            {"prompt": "What clients ask for vs. what actually works", "notes": ""},
+            {"prompt": "Any tools or platforms she relies on day to day", "notes": ""},
+            {"prompt": "Her take on AI replacing vs. augmenting marketing roles", "notes": ""}
         ],
-        "takeaway_prompts": [
-            "How she started Linden Digital Marketing",
-            "Biggest challenges running a small marketing agency",
-            "Advice for someone entering consulting/agency work",
-            "Anything about Rochester's small business market",
-            "Most interesting or unexpected thing she said"
+        "takeaways": [
+            {"prompt": "How she started Linden Digital Marketing", "notes": ""},
+            {"prompt": "Biggest challenges running a small marketing agency", "notes": ""},
+            {"prompt": "Advice for someone entering consulting/agency work", "notes": ""},
+            {"prompt": "Anything about Rochester's small business market", "notes": ""},
+            {"prompt": "Most interesting or unexpected thing she said", "notes": ""}
         ],
-        "comparison_prompts": [
-            "How does a marketing agency's AI adoption compare to other speakers?",
-            "Service business vs. product business differences"
+        "comparisons": [
+            {"prompt": "How does a marketing agency's AI adoption compare to other speakers?", "notes": ""},
+            {"prompt": "Service business vs. product business differences", "notes": ""}
         ],
         "prepared_questions": [],
-        "ai_usage_notes": "",
-        "takeaway_notes": "",
-        "comparison_notes": "",
         "conversation_notes": "",
         "conversation_takeaways": "",
         "raw_shorthand": ""
@@ -50,36 +65,41 @@ DEFAULT_SPEAKERS = [
         "date": "2026-03-26",
         "company": "Breathe Yoga & Juice Bar",
         "role": "Founder & Owner",
-        "task_ref": "Task 2 (running doc)",
+        "task_ref": "Task 1b (running doc)",
         "bio": "20+ year wellness business in Pittsford. Yoga studio, juice bar, kitchen/bakery, spa, retail boutique. Family-run with daughters Abby and Carly. 2016 Rochester Business Person of the Year (50+ employees). Previously had 5 franchise locations, dissolved franchise model in 2022. Registered dietitian and keynote speaker on aging/longevity.",
+        "company_info": {
+            "industry": "Wellness / Hospitality",
+            "location": "Pittsford, NY (Rochester suburb)",
+            "size": "50+ employees at peak, family-run",
+            "founded": "~2004",
+            "website": "breatheyogabar.com",
+            "notes": "Multi-revenue-stream wellness business: yoga studio, juice bar, kitchen/bakery, spa, retail boutique. Previously franchised to 5 locations, dissolved franchise model in 2022. Cyndi is a registered dietitian and keynote speaker on aging/longevity. Adapted during COVID with virtual classes, curbside service, and a 40 Days wellness program."
+        },
         "has_conversation_task": False,
-        "ai_usage_prompts": [
-            "Does she use any AI tools currently? (scheduling, social media, inventory, content)",
-            "What operational tasks eat the most time that tech could help with?",
-            "Attitude toward AI: open/skeptical/unaware?",
-            "How does she use customer data across revenue streams (classes, food, spa, retail)?",
-            "If an AI consultant pitched her, what would she actually want help with?",
-            "Any mention of online class platform, virtual offerings, and tech behind that"
+        "ai_usage": [
+            {"prompt": "Does she use any AI tools currently? (scheduling, social media, inventory, content)", "notes": "Spoke with her after the talk for about 10 minutes. Her most pressing problem is connecting siloed data across four business units before any AI layer can be applied."},
+            {"prompt": "What operational tasks eat the most time that tech could help with?", "notes": ""},
+            {"prompt": "Attitude toward AI: open/skeptical/unaware?", "notes": ""},
+            {"prompt": "How does she use customer data across revenue streams (classes, food, spa, retail)?", "notes": "Data is siloed across the different business units. This was the core consulting insight from the conversation."},
+            {"prompt": "If an AI consultant pitched her, what would she actually want help with?", "notes": "Connecting the data across her four business units would need to come first before any AI tools would be useful."},
+            {"prompt": "Any mention of online class platform, virtual offerings, and tech behind that", "notes": ""}
         ],
-        "takeaway_prompts": [
-            "Lessons from scaling to 5 franchises then dissolving the franchise model",
-            "How she manages multiple revenue streams under one roof",
-            "Customer retention in wellness (people cycle in and out)",
-            "Running a family business with her daughters",
-            "Building around personal passion vs. market demand",
-            "How she adapted during COVID (virtual classes, curbside, 40 Days program)"
+        "takeaways": [
+            {"prompt": "Lessons from scaling to 5 franchises then dissolving the franchise model", "notes": ""},
+            {"prompt": "How she manages multiple revenue streams under one roof", "notes": ""},
+            {"prompt": "Customer retention in wellness (people cycle in and out)", "notes": ""},
+            {"prompt": "Running a family business with her daughters", "notes": ""},
+            {"prompt": "Building around personal passion vs. market demand", "notes": ""},
+            {"prompt": "How she adapted during COVID (virtual classes, curbside, 40 Days program)", "notes": ""}
         ],
-        "comparison_prompts": [
-            "Small wellness business vs. Connelly's digital marketing agency: different AI needs?",
-            "Owner-operator perspective vs. more corporate/scaled businesses (Mucci, Goldner)",
-            "How does a brick-and-mortar service business think about tech differently?"
+        "comparisons": [
+            {"prompt": "Small wellness business vs. Connelly's digital marketing agency: different AI needs?", "notes": ""},
+            {"prompt": "Owner-operator perspective vs. more corporate/scaled businesses (Mucci, Goldner)", "notes": ""},
+            {"prompt": "How does a brick-and-mortar service business think about tech differently?", "notes": ""}
         ],
         "prepared_questions": [],
-        "ai_usage_notes": "",
-        "takeaway_notes": "",
-        "comparison_notes": "",
-        "conversation_notes": "",
-        "conversation_takeaways": "",
+        "conversation_notes": "Spoke with Cyndi for about 10 minutes after the talk. Core insight: her most pressing problem is connecting siloed data across four business units (yoga, juice bar, spa, retail) before any AI layer could be applied. This is exactly the kind of foundational problem an AI implementation consultant would diagnose first.",
+        "conversation_takeaways": "Key consulting insight: the real work starts before AI. Connecting siloed data is the most common blocker, not tool selection. This confirmed the core pitch for AI implementation consulting.",
         "raw_shorthand": ""
     },
     {
@@ -88,25 +108,33 @@ DEFAULT_SPEAKERS = [
         "date": "2026-04-01",
         "company": "(Research before talk)",
         "role": "(Research before talk)",
-        "task_ref": "Task 2 (running doc) + Task 3 (pursue conversation)",
-        "bio": "Task 3 focus: consulting, business growth strategy, where AI fits into the advisory model. Also use this conversation to research possible data sources/ideas for Task 8 (applied analytics project).",
+        "task_ref": "Task 1b (running doc) + Learning Contract Task 3 (pursue conversation)",
+        "bio": "Learning Contract Task 3 focus: consulting, business growth strategy, where AI fits into the advisory model. Also use this conversation to research possible data sources/ideas for Learning Contract Task 8 (applied analytics project).",
+        "company_info": {
+            "industry": "Consulting / Advisory (confirm)",
+            "location": "(Research)",
+            "size": "(Research)",
+            "founded": "(Research)",
+            "website": "(Research)",
+            "notes": "Need to research before April 1 talk. Focus areas: VC/consulting background, business growth strategy, advisory model."
+        },
         "has_conversation_task": True,
-        "ai_usage_prompts": [
-            "How AI fits into his consulting/advisory model",
-            "What AI tools his firm uses internally",
-            "How he advises clients on AI adoption",
-            "Where he sees AI creating the most value in consulting",
-            "His take on AI implementation failure rates"
+        "ai_usage": [
+            {"prompt": "How AI fits into his consulting/advisory model", "notes": ""},
+            {"prompt": "What AI tools his firm uses internally", "notes": ""},
+            {"prompt": "How he advises clients on AI adoption", "notes": ""},
+            {"prompt": "Where he sees AI creating the most value in consulting", "notes": ""},
+            {"prompt": "His take on AI implementation failure rates", "notes": ""}
         ],
-        "takeaway_prompts": [
-            "His path into consulting/advisory work",
-            "How he thinks about business growth strategy",
-            "What skills matter most in consulting",
-            "Advice for someone entering the field"
+        "takeaways": [
+            {"prompt": "His path into consulting/advisory work", "notes": ""},
+            {"prompt": "How he thinks about business growth strategy", "notes": ""},
+            {"prompt": "What skills matter most in consulting", "notes": ""},
+            {"prompt": "Advice for someone entering the field", "notes": ""}
         ],
-        "comparison_prompts": [
-            "Advisory/consulting perspective vs. business operators (Weis, Connelly)",
-            "How does his view on AI adoption differ from someone implementing it internally?"
+        "comparisons": [
+            {"prompt": "Advisory/consulting perspective vs. business operators (Weis, Connelly)", "notes": ""},
+            {"prompt": "How does his view on AI adoption differ from someone implementing it internally?", "notes": ""}
         ],
         "prepared_questions": [
             "What does your consulting/advisory process look like end to end?",
@@ -115,9 +143,6 @@ DEFAULT_SPEAKERS = [
             "What skills matter most for someone entering consulting?",
             "Any leads on datasets or project ideas for an applied analytics project?"
         ],
-        "ai_usage_notes": "",
-        "takeaway_notes": "",
-        "comparison_notes": "",
         "conversation_notes": "",
         "conversation_takeaways": "",
         "raw_shorthand": ""
@@ -128,27 +153,35 @@ DEFAULT_SPEAKERS = [
         "date": "2026-04-08",
         "company": "Paychex",
         "role": "Former CEO",
-        "task_ref": "Task 2 (running doc) + Task 5 (pursue conversation)",
-        "bio": "Paychex founded by Tom Golisano in 1971. Major Rochester employer in the middle of a significant AI transformation. Task 5 focus: AI transformation at Paychex, adoption challenges, what skills companies look for in implementation roles.",
+        "task_ref": "Task 1b (running doc) + Learning Contract Task 5 (pursue conversation)",
+        "bio": "Led Paychex as CEO during major growth period. Paychex founded by Tom Golisano in 1971 with $3,000 and a credit card. Major Rochester employer currently in the middle of a significant AI transformation.",
+        "company_info": {
+            "industry": "HR / Payroll / Financial Services",
+            "location": "Rochester, NY (HQ)",
+            "size": "~16,000 employees, Fortune 500",
+            "founded": "1971 by Tom Golisano",
+            "website": "paychex.com",
+            "notes": "One of the largest payroll and HR services companies in the US. Currently undergoing major AI transformation. Tom Golisano (founder) also founded the Golisano Institute. Key Rochester employer. Learning Contract Task 5 focus: AI transformation at Paychex, adoption challenges, what skills companies look for in implementation roles."
+        },
         "has_conversation_task": True,
-        "ai_usage_prompts": [
-            "Where Paychex is in its AI transformation journey",
-            "Biggest adoption challenges internally",
-            "How leadership communicates AI changes to the workforce",
-            "Specific AI tools or capabilities Paychex has rolled out",
-            "What went well vs. what stalled",
-            "How they measure success of AI initiatives"
+        "ai_usage": [
+            {"prompt": "Where Paychex is in its AI transformation journey", "notes": ""},
+            {"prompt": "Biggest adoption challenges internally", "notes": ""},
+            {"prompt": "How leadership communicates AI changes to the workforce", "notes": ""},
+            {"prompt": "Specific AI tools or capabilities Paychex has rolled out", "notes": ""},
+            {"prompt": "What went well vs. what stalled", "notes": ""},
+            {"prompt": "How they measure success of AI initiatives", "notes": ""}
         ],
-        "takeaway_prompts": [
-            "His leadership philosophy at scale",
-            "Paychex's competitive position and where AI fits in that",
-            "Rochester's role in Paychex's future",
-            "Advice for someone early in their career"
+        "takeaways": [
+            {"prompt": "His leadership philosophy at scale", "notes": ""},
+            {"prompt": "Paychex's competitive position and where AI fits in that", "notes": ""},
+            {"prompt": "Rochester's role in Paychex's future", "notes": ""},
+            {"prompt": "Advice for someone early in their career", "notes": ""}
         ],
-        "comparison_prompts": [
-            "Enterprise-scale AI transformation vs. small business adoption (Weis, Connelly)",
-            "How does Paychex's approach compare to Lawley Insurance (Adam Clouden conversation)?",
-            "Leadership-driven vs. bottom-up adoption: what does Mucci's perspective add?"
+        "comparisons": [
+            {"prompt": "Enterprise-scale AI transformation vs. small business adoption (Weis, Connelly)", "notes": ""},
+            {"prompt": "How does Paychex's approach compare to Lawley Insurance (Adam Clouden conversation)?", "notes": ""},
+            {"prompt": "Leadership-driven vs. bottom-up adoption: what does Mucci's perspective add?", "notes": ""}
         ],
         "prepared_questions": [
             "What has been the biggest AI adoption challenge at Paychex?",
@@ -158,9 +191,6 @@ DEFAULT_SPEAKERS = [
             "What would you want from an outside AI implementation consultant?",
             "How does Paychex handle employee resistance or skepticism?"
         ],
-        "ai_usage_notes": "",
-        "takeaway_notes": "",
-        "comparison_notes": "",
         "conversation_notes": "",
         "conversation_takeaways": "",
         "raw_shorthand": ""
@@ -170,7 +200,7 @@ DEFAULT_SPEAKERS = [
 DEFAULT_ANALYSIS = {
     "common_themes": "",
     "biggest_differences": "",
-    "consulting_insights": "",
+    "consulting_insights": "From Cyndi Weis conversation: the most pressing problem for small businesses is connecting siloed data across business units before any AI layer can be applied. Tool selection is secondary to data infrastructure.",
     "surprises": ""
 }
 
@@ -200,52 +230,39 @@ st.markdown("""
         color: white;
         margin-bottom: 20px;
     }
-    .speaker-header h2 {
-        color: white !important;
-        margin-bottom: 5px;
+    .speaker-header h2 { color: white !important; margin-bottom: 5px; }
+    .speaker-header p { color: #D6EAF8; margin: 2px 0; }
+    .company-card {
+        background: #F8F9FA;
+        border: 1px solid #DEE2E6;
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 20px;
     }
-    .speaker-header p {
-        color: #D6EAF8;
-        margin: 2px 0;
-    }
-    .info-box {
-        background-color: #F8F9FA;
-        border-left: 4px solid #2E86C1;
-        padding: 12px 16px;
-        border-radius: 0 8px 8px 0;
-        margin-bottom: 15px;
-        font-size: 0.9em;
-        color: #333;
-    }
-    .prompt-item {
+    .company-card h4 { margin-top: 0; color: #1B4F72; }
+    .info-row { margin: 4px 0; font-size: 0.9em; }
+    .info-label { font-weight: bold; color: #5D6D7E; }
+    .prompt-box {
         background: #EBF5FB;
-        padding: 8px 12px;
-        border-radius: 6px;
-        margin: 4px 0;
-        font-size: 0.85em;
+        border-left: 3px solid #2E86C1;
+        padding: 10px 14px;
+        border-radius: 0 6px 6px 0;
+        margin: 8px 0 4px 0;
+        font-size: 0.88em;
         color: #1B4F72;
     }
+    .section-divider { border-top: 2px solid #E5E8E8; margin: 30px 0; }
     .status-upcoming {
-        background: #FEF9E7;
-        border: 1px solid #F9E79F;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 0.8em;
-        color: #7D6608;
-        display: inline-block;
+        background: #FEF9E7; border: 1px solid #F9E79F;
+        padding: 6px 14px; border-radius: 20px; font-size: 0.8em; color: #7D6608;
     }
     .status-completed {
-        background: #E8F8F5;
-        border: 1px solid #A3E4D7;
-        padding: 6px 14px;
-        border-radius: 20px;
-        font-size: 0.8em;
-        color: #1E8449;
-        display: inline-block;
+        background: #E8F8F5; border: 1px solid #A3E4D7;
+        padding: 6px 14px; border-radius: 20px; font-size: 0.8em; color: #1E8449;
     }
-    .section-divider {
-        border-top: 2px solid #E5E8E8;
-        margin: 25px 0;
+    .status-needs-notes {
+        background: #FDEDEC; border: 1px solid #F5B7B1;
+        padding: 6px 14px; border-radius: 20px; font-size: 0.8em; color: #922B21;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -256,7 +273,6 @@ st.sidebar.markdown("*Spring 2026 | Kevin Sykes*")
 st.sidebar.markdown("*Golisano Institute for Business & Entrepreneurship*")
 st.sidebar.markdown("---")
 
-# Navigation
 nav_options = ["📊 Dashboard"]
 for s in speakers:
     speaker_date = datetime.strptime(s["date"], "%Y-%m-%d")
@@ -268,45 +284,73 @@ nav_options.append("➕ Add Speaker")
 selection = st.sidebar.radio("Navigate", nav_options, label_visibility="collapsed")
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("**Learning Contract Tasks**")
-st.sidebar.markdown("Task 2: Running SFE notes")
+st.sidebar.markdown("**Learning Contract References**")
+st.sidebar.markdown("Task 1b: Running SFE notes")
 st.sidebar.markdown("Task 3: Goldner conversation")
 st.sidebar.markdown("Task 5: Mucci conversation")
+st.sidebar.markdown("---")
+st.sidebar.markdown("**Data Status**")
+st.sidebar.markdown("⚠️ Data saves to server JSON.")
+st.sidebar.markdown("May reset on app restart.")
+st.sidebar.caption("Future: Google Sheets backend for permanent storage")
+
+# --- Helper: count notes filled ---
+def count_notes(speaker):
+    filled = 0
+    total = 0
+    for section in ["ai_usage", "takeaways", "comparisons"]:
+        for item in speaker.get(section, []):
+            total += 1
+            if item.get("notes", "").strip():
+                filled += 1
+    return filled, total
 
 # --- Dashboard ---
 if selection == "📊 Dashboard":
     st.title("SFE Speaker Notes Dashboard")
-    st.markdown("Speaking from Experience, Spring 2026")
+    st.markdown("Speaking from Experience, Spring 2026 | AI & Business Certificate")
     st.markdown("---")
-    
-    col1, col2, col3 = st.columns(3)
-    
+
+    col1, col2, col3, col4 = st.columns(4)
     total = len(speakers)
     past = sum(1 for s in speakers if datetime.strptime(s["date"], "%Y-%m-%d") <= datetime.now())
-    with_notes = sum(1 for s in speakers if s.get("ai_usage_notes", "").strip() or s.get("takeaway_notes", "").strip() or s.get("raw_shorthand", "").strip())
-    
+    filled_speakers = 0
+    total_notes_filled = 0
+    total_notes_possible = 0
+    for s in speakers:
+        f, t = count_notes(s)
+        total_notes_filled += f
+        total_notes_possible += t
+        if f > 0:
+            filled_speakers += 1
+
     col1.metric("Total Speakers", total)
     col2.metric("Talks Attended", past)
-    col3.metric("With Notes", with_notes)
-    
+    col3.metric("With Notes", filled_speakers)
+    col4.metric("Notes Filled", f"{total_notes_filled}/{total_notes_possible}")
+
     st.markdown("---")
     st.subheader("Speaker Timeline")
-    
+
     for s in speakers:
         speaker_date = datetime.strptime(s["date"], "%Y-%m-%d")
         is_past = speaker_date <= datetime.now()
-        has_notes = bool(s.get("ai_usage_notes", "").strip() or s.get("takeaway_notes", "").strip() or s.get("raw_shorthand", "").strip())
-        
-        if is_past and has_notes:
-            status_html = '<span class="status-completed">Completed</span>'
+        filled, total_prompts = count_notes(s)
+
+        if is_past and filled > 0:
+            pct = int((filled / total_prompts) * 100) if total_prompts > 0 else 0
+            status_html = f'<span class="status-completed">✅ {filled}/{total_prompts} notes ({pct}%)</span>'
         elif is_past:
-            status_html = '<span class="status-upcoming">Attended, needs notes</span>'
+            status_html = '<span class="status-needs-notes">⚠️ Attended, needs notes</span>'
         else:
-            status_html = '<span class="status-upcoming">Upcoming</span>'
-        
+            days_until = (speaker_date - datetime.now()).days + 1
+            status_html = f'<span class="status-upcoming">📅 In {days_until} days</span>'
+
+        conv_tag = " 🗣️" if s.get("has_conversation_task") else ""
+
         st.markdown(f"""
-        **{s['name']}** — {s['company']}  
-        {speaker_date.strftime('%B %d, %Y')} &nbsp;&nbsp; {status_html}  
+        **{s['name']}** — {s['company']}{conv_tag}
+        {speaker_date.strftime('%B %d, %Y')} &nbsp;&nbsp; {status_html}
         *{s['task_ref']}*
         """, unsafe_allow_html=True)
         st.markdown("---")
@@ -314,8 +358,7 @@ if selection == "📊 Dashboard":
 # --- Add Speaker ---
 elif selection == "➕ Add Speaker":
     st.title("Add New Speaker")
-    st.markdown("Add a new SFE speaker to track.")
-    
+
     with st.form("add_speaker"):
         name = st.text_input("Speaker Name")
         date = st.date_input("Date of Talk")
@@ -323,9 +366,16 @@ elif selection == "➕ Add Speaker":
         role = st.text_input("Role / Title")
         bio = st.text_area("Background / Bio (optional)")
         has_conv = st.checkbox("This speaker has a conversation/interview task")
-        
+
+        st.markdown("**Company Information**")
+        c_industry = st.text_input("Industry")
+        c_location = st.text_input("Location")
+        c_size = st.text_input("Company Size")
+        c_website = st.text_input("Website")
+        c_notes = st.text_area("Company Notes")
+
         submitted = st.form_submit_button("Add Speaker")
-        
+
         if submitted and name:
             new_id = name.lower().replace(" ", "_")
             new_speaker = {
@@ -334,77 +384,76 @@ elif selection == "➕ Add Speaker":
                 "date": date.strftime("%Y-%m-%d"),
                 "company": company,
                 "role": role,
-                "task_ref": "Task 2 (running doc)",
+                "task_ref": "Task 1b (running doc)" + (" + conversation task" if has_conv else ""),
                 "bio": bio,
+                "company_info": {
+                    "industry": c_industry,
+                    "location": c_location,
+                    "size": c_size,
+                    "founded": "",
+                    "website": c_website,
+                    "notes": c_notes
+                },
                 "has_conversation_task": has_conv,
-                "ai_usage_prompts": [
-                    "How does this speaker/organization use AI?",
-                    "What tools or platforms do they rely on?",
-                    "What is their attitude toward AI adoption?",
-                    "Biggest AI-related challenge they face"
+                "ai_usage": [
+                    {"prompt": "How does this speaker/organization use AI?", "notes": ""},
+                    {"prompt": "What tools or platforms do they rely on?", "notes": ""},
+                    {"prompt": "What is their attitude toward AI adoption?", "notes": ""},
+                    {"prompt": "Biggest AI-related challenge they face", "notes": ""}
                 ],
-                "takeaway_prompts": [
-                    "Most valuable insight from the talk",
-                    "Advice relevant to my career path",
-                    "Anything surprising or unexpected"
+                "takeaways": [
+                    {"prompt": "Most valuable insight from the talk", "notes": ""},
+                    {"prompt": "Advice relevant to my career path", "notes": ""},
+                    {"prompt": "Anything surprising or unexpected", "notes": ""}
                 ],
-                "comparison_prompts": [
-                    "How does this speaker's perspective compare to previous speakers?",
-                    "What new pattern or contradiction emerged?"
+                "comparisons": [
+                    {"prompt": "How does this speaker's perspective compare to previous speakers?", "notes": ""},
+                    {"prompt": "What new pattern or contradiction emerged?", "notes": ""}
                 ],
                 "prepared_questions": [],
-                "ai_usage_notes": "",
-                "takeaway_notes": "",
-                "comparison_notes": "",
                 "conversation_notes": "",
                 "conversation_takeaways": "",
-                "raw_shorthand": ""
+                "raw_shorthand": "",
+                "universal_answers": {}
             }
             speakers.append(new_speaker)
             save_data({"speakers": speakers, "analysis": analysis})
-            st.success(f"Added {name}! Navigate to their page in the sidebar.")
+            st.success(f"Added {name}!")
             st.rerun()
 
 # --- Cross-Speaker Analysis ---
 elif selection == "🔍 Cross-Speaker Analysis":
     st.title("Cross-Speaker Analysis")
-    st.markdown("Use this section at the end of the quarter to compare and analyze patterns across all speakers.")
+    st.markdown("Compare and analyze patterns across all speakers. Build this throughout the quarter.")
     st.markdown("---")
-    
-    st.subheader("Common Themes on AI Adoption")
-    st.markdown("*What patterns emerged? Where did multiple speakers agree? Common barriers mentioned?*")
-    common = st.text_area("Common Themes", value=analysis.get("common_themes", ""), height=150, key="common", label_visibility="collapsed")
-    
-    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
-    
-    st.subheader("Biggest Differences in AI Perspective")
-    st.markdown("*Where did speakers disagree? How much did industry/company size drive differences? Enterprise vs. small business vs. advisory?*")
-    diffs = st.text_area("Differences", value=analysis.get("biggest_differences", ""), height=150, key="diffs", label_visibility="collapsed")
-    
-    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
-    
-    st.subheader("Insights Relevant to AI Implementation Consulting")
-    st.markdown("*What did speakers teach you about what companies actually need? What skills kept coming up? How does this connect to failure rate data?*")
-    consulting = st.text_area("Consulting Insights", value=analysis.get("consulting_insights", ""), height=150, key="consulting", label_visibility="collapsed")
-    
-    st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
-    
-    st.subheader("Surprises / Changed Assumptions")
-    st.markdown("*What challenged something you believed? Biggest gap between expectation and reality? How has your understanding evolved?*")
-    surprises = st.text_area("Surprises", value=analysis.get("surprises", ""), height=150, key="surprises", label_visibility="collapsed")
-    
+
+    sections = [
+        ("common_themes", "Common Themes on AI Adoption",
+         "What patterns emerged? Where did multiple speakers agree? Common barriers mentioned (cost, trust, skills, culture)?"),
+        ("biggest_differences", "Biggest Differences in AI Perspective",
+         "Where did speakers disagree? How much did industry/company size drive differences? Enterprise vs. small business vs. advisory?"),
+        ("consulting_insights", "Insights Relevant to AI Implementation Consulting",
+         "What did speakers teach you about what companies actually need? What skills kept coming up? How does this connect to failure rate data from Task 1a research?"),
+        ("surprises", "Surprises / Changed Assumptions",
+         "What challenged something you believed? Biggest gap between expectation and reality? How has your understanding evolved?")
+    ]
+
+    values = {}
+    for key, title, description in sections:
+        st.subheader(title)
+        st.markdown(f"*{description}*")
+        values[key] = st.text_area(key, value=analysis.get(key, ""), height=150, key=f"analysis_{key}", label_visibility="collapsed")
+        st.markdown('<div class="section-divider"></div>', unsafe_allow_html=True)
+
     if st.button("Save Analysis", type="primary"):
-        analysis["common_themes"] = common
-        analysis["biggest_differences"] = diffs
-        analysis["consulting_insights"] = consulting
-        analysis["surprises"] = surprises
+        for key in values:
+            analysis[key] = values[key]
         save_data({"speakers": speakers, "analysis": analysis})
         st.success("Analysis saved.")
 
 # --- Speaker Pages ---
 else:
-    # Find the speaker
-    speaker_name = selection.split(" ", 1)[1]  # Remove the emoji prefix
+    speaker_name = selection.split(" ", 1)[1]
     speaker = None
     speaker_idx = None
     for i, s in enumerate(speakers):
@@ -412,156 +461,160 @@ else:
             speaker = s
             speaker_idx = i
             break
-    
+
     if speaker is None:
         st.error("Speaker not found.")
     else:
         speaker_date = datetime.strptime(speaker["date"], "%Y-%m-%d")
         is_upcoming = speaker_date > datetime.now()
-        
+        filled, total_prompts = count_notes(speaker)
+
         # Header
         st.markdown(f"""
         <div class="speaker-header">
             <h2>{speaker['name']}</h2>
             <p><strong>{speaker['company']}</strong> — {speaker['role']}</p>
             <p>{speaker_date.strftime('%B %d, %Y')} &nbsp;|&nbsp; {speaker['task_ref']}</p>
+            <p>Notes: {filled}/{total_prompts} filled</p>
         </div>
         """, unsafe_allow_html=True)
-        
+
         # Bio
         if speaker.get("bio"):
-            st.markdown(f'<div class="info-box">{speaker["bio"]}</div>', unsafe_allow_html=True)
-        
-        # Editable company/role if placeholders
-        if "(Research" in speaker.get("company", "") or "(Research" in speaker.get("role", ""):
-            st.markdown("#### Update Speaker Info")
-            col1, col2 = st.columns(2)
-            new_company = col1.text_input("Company", value=speaker["company"], key=f"company_{speaker['id']}")
-            new_role = col2.text_input("Role", value=speaker["role"], key=f"role_{speaker['id']}")
-            new_bio = st.text_area("Bio / Background", value=speaker.get("bio", ""), key=f"bio_{speaker['id']}")
-            if st.button("Update Info", key=f"update_info_{speaker['id']}"):
-                speakers[speaker_idx]["company"] = new_company
-                speakers[speaker_idx]["role"] = new_role
-                speakers[speaker_idx]["bio"] = new_bio
+            st.markdown(f"*{speaker['bio']}*")
+
+        # --- Company Information Card ---
+        ci = speaker.get("company_info", {})
+        st.markdown(f"""
+        <div class="company-card">
+            <h4>🏢 Company Information</h4>
+            <div class="info-row"><span class="info-label">Industry:</span> {ci.get('industry', '')}</div>
+            <div class="info-row"><span class="info-label">Location:</span> {ci.get('location', '')}</div>
+            <div class="info-row"><span class="info-label">Size:</span> {ci.get('size', '')}</div>
+            <div class="info-row"><span class="info-label">Founded:</span> {ci.get('founded', '')}</div>
+            <div class="info-row"><span class="info-label">Website:</span> {ci.get('website', '')}</div>
+            <div class="info-row"><span class="info-label">Notes:</span> {ci.get('notes', '')}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Edit company info
+        with st.expander("✏️ Edit Company Information"):
+            ci_industry = st.text_input("Industry", value=ci.get("industry", ""), key=f"ci_ind_{speaker['id']}")
+            ci_location = st.text_input("Location", value=ci.get("location", ""), key=f"ci_loc_{speaker['id']}")
+            ci_size = st.text_input("Size", value=ci.get("size", ""), key=f"ci_size_{speaker['id']}")
+            ci_founded = st.text_input("Founded", value=ci.get("founded", ""), key=f"ci_found_{speaker['id']}")
+            ci_website = st.text_input("Website", value=ci.get("website", ""), key=f"ci_web_{speaker['id']}")
+            ci_notes = st.text_area("Company Notes", value=ci.get("notes", ""), key=f"ci_notes_{speaker['id']}")
+            if st.button("Update Company Info", key=f"ci_save_{speaker['id']}"):
+                speakers[speaker_idx]["company_info"] = {
+                    "industry": ci_industry, "location": ci_location, "size": ci_size,
+                    "founded": ci_founded, "website": ci_website, "notes": ci_notes
+                }
                 save_data({"speakers": speakers, "analysis": analysis})
-                st.success("Updated!")
+                st.success("Company info updated!")
                 st.rerun()
-        
+
         st.markdown("---")
-        
-        # --- Shorthand Notes (top of page for quick access during talk) ---
+
+        # --- Shorthand Notes ---
         st.subheader("📝 Live Shorthand Notes")
-        st.markdown("*Use this during the talk. Quick bullet points, keywords, phrases. Fill in the structured sections after.*")
-        raw = st.text_area(
-            "Shorthand",
-            value=speaker.get("raw_shorthand", ""),
-            height=150,
-            key=f"raw_{speaker['id']}",
-            placeholder="Type quick notes here during the talk...",
-            label_visibility="collapsed"
-        )
-        
+        st.markdown("*Quick notes during the talk. Keywords, phrases, ideas. Fill in structured sections after.*")
+        raw = st.text_area("shorthand", value=speaker.get("raw_shorthand", ""), height=120,
+                           key=f"raw_{speaker['id']}", placeholder="Type quick notes during the talk...",
+                           label_visibility="collapsed")
+
         st.markdown("---")
+
+        # --- Universal Questions (cross-speaker comparison dataset) ---
+        st.subheader("📊 Universal Questions")
+        st.markdown("*Same questions for every speaker. Builds a dataset for cross-speaker comparison and Task 8 analysis.*")
         
-        # --- Prepared Questions (for speakers with conversation tasks) ---
+        universal = speaker.get("universal_answers", {})
+        uq_values = {}
+        for q in UNIVERSAL_QUESTIONS:
+            badge = "🔢" if q["type"] == "quantitative" else "🏷️"
+            st.markdown(f'<div class="prompt-box">{badge} {q["question"]}</div>', unsafe_allow_html=True)
+            val = st.text_input(
+                q["id"], value=universal.get(q["id"], ""),
+                key=f"uq_{speaker['id']}_{q['id']}",
+                label_visibility="collapsed",
+                placeholder="Their answer / your observation..."
+            )
+            uq_values[q["id"]] = val
+
+        st.markdown("---")
+
+        # --- Prepared Questions ---
         if speaker.get("has_conversation_task") or speaker.get("prepared_questions"):
             st.subheader("❓ Prepared Questions")
-            st.markdown("*Questions to ask during or after the talk.*")
-            
-            existing_qs = speaker.get("prepared_questions", [])
-            for i, q in enumerate(existing_qs):
-                st.markdown(f'<div class="prompt-item">• {q}</div>', unsafe_allow_html=True)
-            
-            new_q = st.text_input("Add a question", key=f"newq_{speaker['id']}", placeholder="Type a new question and press Enter...")
+            for i, q in enumerate(speaker.get("prepared_questions", [])):
+                st.markdown(f'<div class="prompt-box">• {q}</div>', unsafe_allow_html=True)
+            new_q = st.text_input("Add a question", key=f"newq_{speaker['id']}",
+                                  placeholder="Type a new question and hit Enter...")
             if new_q:
                 speakers[speaker_idx]["prepared_questions"].append(new_q)
                 save_data({"speakers": speakers, "analysis": analysis})
                 st.rerun()
-            
             st.markdown("---")
-        
-        # --- AI Usage Notes ---
+
+        # --- AI Usage ---
         st.subheader("🤖 How They Apply / See AI in Their Business")
-        st.markdown("*Reference prompts:*")
-        for p in speaker.get("ai_usage_prompts", []):
-            st.markdown(f'<div class="prompt-item">• {p}</div>', unsafe_allow_html=True)
-        
-        ai_notes = st.text_area(
-            "AI Usage Notes",
-            value=speaker.get("ai_usage_notes", ""),
-            height=200,
-            key=f"ai_{speaker['id']}",
-            placeholder="Your notes on how this speaker uses or views AI...",
-            label_visibility="collapsed"
-        )
-        
+        ai_values = []
+        for i, item in enumerate(speaker.get("ai_usage", [])):
+            st.markdown(f'<div class="prompt-box">{item["prompt"]}</div>', unsafe_allow_html=True)
+            val = st.text_area(f"ai_note_{i}", value=item.get("notes", ""), height=80,
+                               key=f"ai_{speaker['id']}_{i}", label_visibility="collapsed",
+                               placeholder="Your notes on this...")
+            ai_values.append(val)
+
         st.markdown("---")
-        
+
         # --- Key Takeaways ---
         st.subheader("💡 Key Takeaways / General Notes")
-        st.markdown("*Reference prompts:*")
-        for p in speaker.get("takeaway_prompts", []):
-            st.markdown(f'<div class="prompt-item">• {p}</div>', unsafe_allow_html=True)
-        
-        takeaway_notes = st.text_area(
-            "Takeaway Notes",
-            value=speaker.get("takeaway_notes", ""),
-            height=200,
-            key=f"takeaway_{speaker['id']}",
-            placeholder="Key takeaways, general notes, interesting points...",
-            label_visibility="collapsed"
-        )
-        
+        takeaway_values = []
+        for i, item in enumerate(speaker.get("takeaways", [])):
+            st.markdown(f'<div class="prompt-box">{item["prompt"]}</div>', unsafe_allow_html=True)
+            val = st.text_area(f"take_note_{i}", value=item.get("notes", ""), height=80,
+                               key=f"take_{speaker['id']}_{i}", label_visibility="collapsed",
+                               placeholder="Your notes on this...")
+            takeaway_values.append(val)
+
         st.markdown("---")
-        
-        # --- Conversation Notes (for speakers with conversation tasks) ---
+
+        # --- Conversation Notes ---
         if speaker.get("has_conversation_task"):
             st.subheader("🗣️ Conversation Notes")
-            st.markdown("*Notes from your direct conversation with this speaker.*")
-            
-            conv_notes = st.text_area(
-                "Conversation Notes",
-                value=speaker.get("conversation_notes", ""),
-                height=200,
-                key=f"conv_{speaker['id']}",
-                placeholder="What did you discuss? Key points from the conversation...",
-                label_visibility="collapsed"
-            )
-            
+            conv_notes = st.text_area("conv", value=speaker.get("conversation_notes", ""), height=150,
+                                      key=f"conv_{speaker['id']}", label_visibility="collapsed",
+                                      placeholder="What did you discuss? Key points from the conversation...")
+
             st.subheader("🎯 Key Takeaways from Conversation")
-            conv_takeaways = st.text_area(
-                "Conversation Takeaways",
-                value=speaker.get("conversation_takeaways", ""),
-                height=150,
-                key=f"convtake_{speaker['id']}",
-                placeholder="Most important thing learned, how it changes your thinking, follow-up actions...",
-                label_visibility="collapsed"
-            )
-            
+            conv_takeaways = st.text_area("convtake", value=speaker.get("conversation_takeaways", ""), height=120,
+                                          key=f"convtake_{speaker['id']}", label_visibility="collapsed",
+                                          placeholder="Most important thing learned, how it changes your thinking...")
             st.markdown("---")
-        
-        # --- Comparison ---
+
+        # --- Comparisons ---
         st.subheader("🔄 Comparison / Contrast with Other Speakers")
-        st.markdown("*Reference prompts:*")
-        for p in speaker.get("comparison_prompts", []):
-            st.markdown(f'<div class="prompt-item">• {p}</div>', unsafe_allow_html=True)
-        
-        comp_notes = st.text_area(
-            "Comparison Notes",
-            value=speaker.get("comparison_notes", ""),
-            height=150,
-            key=f"comp_{speaker['id']}",
-            placeholder="How does this speaker compare to others?",
-            label_visibility="collapsed"
-        )
-        
-        # --- Save ---
+        comp_values = []
+        for i, item in enumerate(speaker.get("comparisons", [])):
+            st.markdown(f'<div class="prompt-box">{item["prompt"]}</div>', unsafe_allow_html=True)
+            val = st.text_area(f"comp_note_{i}", value=item.get("notes", ""), height=80,
+                               key=f"comp_{speaker['id']}_{i}", label_visibility="collapsed",
+                               placeholder="Your notes on this...")
+            comp_values.append(val)
+
+        # --- Save All ---
         st.markdown("---")
         if st.button("💾 Save All Notes", type="primary", key=f"save_{speaker['id']}"):
             speakers[speaker_idx]["raw_shorthand"] = raw
-            speakers[speaker_idx]["ai_usage_notes"] = ai_notes
-            speakers[speaker_idx]["takeaway_notes"] = takeaway_notes
-            speakers[speaker_idx]["comparison_notes"] = comp_notes
+            speakers[speaker_idx]["universal_answers"] = uq_values
+            for i, val in enumerate(ai_values):
+                speakers[speaker_idx]["ai_usage"][i]["notes"] = val
+            for i, val in enumerate(takeaway_values):
+                speakers[speaker_idx]["takeaways"][i]["notes"] = val
+            for i, val in enumerate(comp_values):
+                speakers[speaker_idx]["comparisons"][i]["notes"] = val
             if speaker.get("has_conversation_task"):
                 speakers[speaker_idx]["conversation_notes"] = conv_notes
                 speakers[speaker_idx]["conversation_takeaways"] = conv_takeaways
