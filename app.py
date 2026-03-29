@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+import io
 from datetime import datetime
 
 # --- Config ---
@@ -354,6 +355,160 @@ if selection == "📊 Dashboard":
         *{s['task_ref']}*
         """, unsafe_allow_html=True)
         st.markdown("---")
+
+    # --- Export to Excel ---
+    st.markdown("---")
+    st.subheader("📥 Export to Excel")
+    st.markdown("*Download all speaker data as an Excel file. Use as backup, for analysis, or to share with Jamarr.*")
+
+    if st.button("Export All Data to Excel", type="primary"):
+        try:
+            from openpyxl import Workbook
+            from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+
+            wb = Workbook()
+
+            # --- Sheet 1: Speaker Overview ---
+            ws1 = wb.active
+            ws1.title = "Speaker Overview"
+            headers = ["Speaker", "Company", "Role", "Date", "Task Ref", "Notes Filled", "Shorthand Notes"]
+            header_font = Font(bold=True, color="FFFFFF", size=11)
+            header_fill = PatternFill(start_color="1B4F72", end_color="1B4F72", fill_type="solid")
+
+            for col, h in enumerate(headers, 1):
+                cell = ws1.cell(row=1, column=col, value=h)
+                cell.font = header_font
+                cell.fill = header_fill
+                cell.alignment = Alignment(horizontal="center")
+
+            for row, s in enumerate(speakers, 2):
+                f, t = count_notes(s)
+                ws1.cell(row=row, column=1, value=s["name"])
+                ws1.cell(row=row, column=2, value=s["company"])
+                ws1.cell(row=row, column=3, value=s["role"])
+                ws1.cell(row=row, column=4, value=s["date"])
+                ws1.cell(row=row, column=5, value=s["task_ref"])
+                ws1.cell(row=row, column=6, value=f"{f}/{t}")
+                ws1.cell(row=row, column=7, value=s.get("raw_shorthand", ""))
+
+            for col in range(1, len(headers) + 1):
+                ws1.column_dimensions[chr(64 + col)].width = 20
+
+            # --- Sheet 2: Detailed Notes ---
+            ws2 = wb.create_sheet("Detailed Notes")
+            detail_headers = ["Speaker", "Section", "Prompt", "Notes"]
+            for col, h in enumerate(detail_headers, 1):
+                cell = ws2.cell(row=1, column=col, value=h)
+                cell.font = header_font
+                cell.fill = header_fill
+
+            detail_row = 2
+            for s in speakers:
+                for section_key, section_name in [("ai_usage", "AI Usage"), ("takeaways", "Key Takeaways"), ("comparisons", "Comparisons")]:
+                    for item in s.get(section_key, []):
+                        ws2.cell(row=detail_row, column=1, value=s["name"])
+                        ws2.cell(row=detail_row, column=2, value=section_name)
+                        ws2.cell(row=detail_row, column=3, value=item.get("prompt", ""))
+                        ws2.cell(row=detail_row, column=4, value=item.get("notes", ""))
+                        detail_row += 1
+
+                if s.get("conversation_notes"):
+                    ws2.cell(row=detail_row, column=1, value=s["name"])
+                    ws2.cell(row=detail_row, column=2, value="Conversation Notes")
+                    ws2.cell(row=detail_row, column=3, value="Direct conversation")
+                    ws2.cell(row=detail_row, column=4, value=s.get("conversation_notes", ""))
+                    detail_row += 1
+
+                if s.get("conversation_takeaways"):
+                    ws2.cell(row=detail_row, column=1, value=s["name"])
+                    ws2.cell(row=detail_row, column=2, value="Conversation Takeaways")
+                    ws2.cell(row=detail_row, column=3, value="Key takeaways from conversation")
+                    ws2.cell(row=detail_row, column=4, value=s.get("conversation_takeaways", ""))
+                    detail_row += 1
+
+            ws2.column_dimensions["A"].width = 20
+            ws2.column_dimensions["B"].width = 20
+            ws2.column_dimensions["C"].width = 50
+            ws2.column_dimensions["D"].width = 60
+
+            # --- Sheet 3: Universal Questions ---
+            ws3 = wb.create_sheet("Universal Questions")
+            uq_headers = ["Speaker", "Date"] + [q["question"] for q in UNIVERSAL_QUESTIONS]
+            for col, h in enumerate(uq_headers, 1):
+                cell = ws3.cell(row=1, column=col, value=h)
+                cell.font = header_font
+                cell.fill = header_fill
+                cell.alignment = Alignment(wrap_text=True)
+
+            for row, s in enumerate(speakers, 2):
+                ws3.cell(row=row, column=1, value=s["name"])
+                ws3.cell(row=row, column=2, value=s["date"])
+                ua = s.get("universal_answers", {})
+                for col, q in enumerate(UNIVERSAL_QUESTIONS, 3):
+                    ws3.cell(row=row, column=col, value=ua.get(q["id"], ""))
+
+            ws3.column_dimensions["A"].width = 20
+            ws3.column_dimensions["B"].width = 12
+            for col in range(3, 3 + len(UNIVERSAL_QUESTIONS)):
+                ws3.column_dimensions[chr(64 + col)].width = 30
+
+            # --- Sheet 4: Company Info ---
+            ws4 = wb.create_sheet("Company Info")
+            ci_headers = ["Speaker", "Company", "Industry", "Location", "Size", "Founded", "Website", "Notes"]
+            for col, h in enumerate(ci_headers, 1):
+                cell = ws4.cell(row=1, column=col, value=h)
+                cell.font = header_font
+                cell.fill = header_fill
+
+            for row, s in enumerate(speakers, 2):
+                ci = s.get("company_info", {})
+                ws4.cell(row=row, column=1, value=s["name"])
+                ws4.cell(row=row, column=2, value=s["company"])
+                ws4.cell(row=row, column=3, value=ci.get("industry", ""))
+                ws4.cell(row=row, column=4, value=ci.get("location", ""))
+                ws4.cell(row=row, column=5, value=ci.get("size", ""))
+                ws4.cell(row=row, column=6, value=ci.get("founded", ""))
+                ws4.cell(row=row, column=7, value=ci.get("website", ""))
+                ws4.cell(row=row, column=8, value=ci.get("notes", ""))
+
+            for col in range(1, len(ci_headers) + 1):
+                ws4.column_dimensions[chr(64 + col)].width = 20
+
+            # --- Sheet 5: Cross-Speaker Analysis ---
+            ws5 = wb.create_sheet("Cross-Speaker Analysis")
+            ws5.cell(row=1, column=1, value="Category").font = header_font
+            ws5.cell(row=1, column=1).fill = header_fill
+            ws5.cell(row=1, column=2, value="Notes").font = header_font
+            ws5.cell(row=1, column=2).fill = header_fill
+
+            analysis_items = [
+                ("Common Themes on AI Adoption", analysis.get("common_themes", "")),
+                ("Biggest Differences in AI Perspective", analysis.get("biggest_differences", "")),
+                ("Insights for AI Implementation Consulting", analysis.get("consulting_insights", "")),
+                ("Surprises / Changed Assumptions", analysis.get("surprises", ""))
+            ]
+            for row, (cat, notes) in enumerate(analysis_items, 2):
+                ws5.cell(row=row, column=1, value=cat)
+                ws5.cell(row=row, column=2, value=notes)
+
+            ws5.column_dimensions["A"].width = 40
+            ws5.column_dimensions["B"].width = 80
+
+            # Save to buffer and download
+            buffer = io.BytesIO()
+            wb.save(buffer)
+            buffer.seek(0)
+
+            st.download_button(
+                label="📥 Download Excel File",
+                data=buffer,
+                file_name=f"SFE_Speaker_Notes_{datetime.now().strftime('%Y%m%d')}.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+            st.success("Excel file ready for download!")
+
+        except ImportError:
+            st.error("openpyxl not installed. Add 'openpyxl' to requirements.txt and redeploy.")
 
 # --- Add Speaker ---
 elif selection == "➕ Add Speaker":
