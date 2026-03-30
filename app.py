@@ -38,27 +38,27 @@ DEFAULT_SPEAKERS = [
         },
         "has_conversation_task": False,
         "ai_usage": [
-            {"prompt": "AI tools used in her digital marketing work (content generation, analytics, ad targeting, etc.)", "notes": ""},
-            {"prompt": "How she positions AI capabilities to clients", "notes": ""},
-            {"prompt": "What clients ask for vs. what actually works", "notes": ""},
-            {"prompt": "Any tools or platforms she relies on day to day", "notes": ""},
-            {"prompt": "Her take on AI replacing vs. augmenting marketing roles", "notes": ""}
+            {"prompt": "AI tools used in her digital marketing work (content generation, analytics, ad targeting, etc.)", "notes": "Uses AI for email outreach/marketing automation. Has an AI-driven pricing algorithm that generates ROI predictions for client campaigns. Also uses a lead qualification program to help decide which leads are worth pursuing."},
+            {"prompt": "How she positions AI capabilities to clients", "notes": "Very open about AI with clients, frames it as a major factor in digital marketing. Uses a numbers-first approach, has a table of ROI data she references when closing deals. Shows clients exactly what return they'd get for the cost of her ad campaigns."},
+            {"prompt": "What clients ask for vs. what actually works", "notes": "Tailors each client to the correct advertising platform based on years of hands-on social media experience. Backs everything with measurable ROI data. The numbers close the deals, she knows which platforms work for which clients and can demonstrate concrete value."},
+            {"prompt": "Any tools or platforms she relies on day to day", "notes": "Email AI tools for organizing/summarizing, lead qualification program, ROI/pricing algorithm. Specific tool names not captured."},
+            {"prompt": "Her take on AI replacing vs. augmenting marketing roles", "notes": "Very bullish, early adopter. Jumped on AI immediately. Started by using it for her own email workflow (organizing, summarizing) before expanding into client-facing applications like the pricing algorithm and lead qualification."}
         ],
         "takeaways": [
             {"prompt": "How she started Linden Digital Marketing", "notes": ""},
             {"prompt": "Biggest challenges running a small marketing agency", "notes": ""},
             {"prompt": "Advice for someone entering consulting/agency work", "notes": ""},
             {"prompt": "Anything about Rochester's small business market", "notes": ""},
-            {"prompt": "Most interesting or unexpected thing she said", "notes": ""}
+            {"prompt": "Most interesting or unexpected thing she said", "notes": "Her numbers-first approach. The ROI table she uses when closing deals, the pricing algorithm for predicting client returns, the emphasis on measurable outcomes. She knew her numbers, knew the social media platforms from years of practice, and could show clients exactly what they'd get. The combination of deep platform knowledge and data-backed selling was the strongest part of the presentation."}
         ],
         "comparisons": [
             {"prompt": "How does a marketing agency's AI adoption compare to other speakers?", "notes": ""},
             {"prompt": "Service business vs. product business differences", "notes": ""}
         ],
         "prepared_questions": [],
-        "conversation_notes": "",
+        "conversation_notes": "No post-talk conversation. She was swarmed after the talk.",
         "conversation_takeaways": "",
-        "raw_shorthand": ""
+        "raw_shorthand": "Wasn't prepared for this speaker, minimal notes taken. Backfilled from memory."
     },
     {
         "id": "weis",
@@ -78,30 +78,31 @@ DEFAULT_SPEAKERS = [
         },
         "has_conversation_task": False,
         "ai_usage": [
-            {"prompt": "Does she use any AI tools currently? (scheduling, social media, inventory, content)", "notes": "Spoke with her after the talk for about 10 minutes. Her most pressing problem is connecting siloed data across four business units before any AI layer can be applied."},
-            {"prompt": "What operational tasks eat the most time that tech could help with?", "notes": ""},
-            {"prompt": "Attitude toward AI: open/skeptical/unaware?", "notes": ""},
-            {"prompt": "How does she use customer data across revenue streams (classes, food, spa, retail)?", "notes": "Data is siloed across the different business units. This was the core consulting insight from the conversation."},
-            {"prompt": "If an AI consultant pitched her, what would she actually want help with?", "notes": "Connecting the data across her four business units would need to come first before any AI tools would be useful."},
-            {"prompt": "Any mention of online class platform, virtual offerings, and tech behind that", "notes": ""}
+            {"prompt": "Does she use any AI tools currently? (scheduling, social media, inventory, content)", "notes": "Spoke with her after the talk for about 10 minutes. Her most pressing problem is connecting siloed data across four business units before any AI layer can be applied. Uses one consolidated system across all four business units for payroll and operations (name of system not recalled)."},
+            {"prompt": "What operational tasks eat the most time that tech could help with?", "notes": "Understanding customer churn. She wants to know why people cancel, why they stop showing up. Email follow-ups work for class/spa cancellations where she has membership data, but the retail and juice bar side is much harder to track since those customers can just stop coming without any formal cancellation."},
+            {"prompt": "Attitude toward AI: open/skeptical/unaware?", "notes": "Curious and quick to adapt. COVID proved she can pivot to technology fast. Took her entire yoga class offering online immediately and it stuck, still does a significant percentage of classes online today (possibly around 30%, exact number not recalled). Not resistant to tech at all, just needs the data foundation connected first."},
+            {"prompt": "How does she use customer data across revenue streams (classes, food, spa, retail)?", "notes": "Data is siloed across the different business units. Uses the same operational/payroll system across all four, but the customer insight side is fragmented. Has better visibility into class and spa customers (membership/booking data) than retail and juice bar customers (transactional, no membership). This was the core consulting insight from the conversation."},
+            {"prompt": "If an AI consultant pitched her, what would she actually want help with?", "notes": "Two things. First, connecting the data across her four business units, that has to come before any AI tools would be useful. Second, understanding customer churn, specifically getting better data on why people leave across all revenue streams, not just the ones with membership tracking."},
+            {"prompt": "Any mention of online class platform, virtual offerings, and tech behind that", "notes": "Went online immediately when COVID hit. All members got instant access to online yoga classes. Made a deliberate choice that every instructor films in front of a plain white wall, nothing to distract from pure yoga instruction. Online classes continued post-COVID and still make up a significant share of her yoga business (estimated around 30%, exact figure not recalled)."}
         ],
         "takeaways": [
-            {"prompt": "Lessons from scaling to 5 franchises then dissolving the franchise model", "notes": ""},
-            {"prompt": "How she manages multiple revenue streams under one roof", "notes": ""},
-            {"prompt": "Customer retention in wellness (people cycle in and out)", "notes": ""},
+            {"prompt": "Lessons from scaling to 5 franchises then dissolving the franchise model", "notes": "Big part of the talk. She chose to disenfranchise because she wanted full control and for everything to fit her vision. Offered franchisees the option to retain their businesses, but they had to change their names and operate independently. The logistical headache was gift cards and coupons. Around July of the transition year, her team had to reach out to everyone who had purchased gift cards at franchise locations to communicate that they would expire at the end of the year and could only be used at the location where they were purchased. After the new year when disenfranchisement was finalized, they would no longer be valid at any Breathe location. Required repeated communication to make sure customers didn't feel wronged. Very stressful process."},
+            {"prompt": "How she manages multiple revenue streams under one roof", "notes": "Uses one consolidated system for payroll and operations across all four units (yoga, juice bar, spa, retail). System name not recalled. The operational side is unified, but customer data and insight across the units is fragmented, which is the core problem she's trying to solve."},
+            {"prompt": "Customer retention in wellness (people cycle in and out)", "notes": "Retention is a major strength. Her introductory offer is intentionally different from competitors, no '2 free classes' model. Instead, new customers pay around $30 for two weeks of unlimited, all-access yoga. Her reasoning is that one or two classes is not enough for meaningful life changes, so she gives the full experience during the trial. Once customers are in, she rarely loses them. Yoga becomes a lifestyle change that lasts. Even customers who have to step away tend to come back eventually because the value sticks. Retention rate is high (specific numbers not recalled). Her biggest open question is understanding the customers she does lose, why they cancel, why they stop coming."},
             {"prompt": "Running a family business with her daughters", "notes": ""},
             {"prompt": "Building around personal passion vs. market demand", "notes": ""},
-            {"prompt": "How she adapted during COVID (virtual classes, curbside, 40 Days program)", "notes": ""}
+            {"prompt": "How she adapted during COVID (virtual classes, curbside, 40 Days program)", "notes": "Moved yoga classes online immediately. All members got instant access. Instructors always filmed in front of a plain white wall for clean, distraction-free instruction. Online classes stuck and still represent a meaningful share of the business. The 'curbside' concept is actually a longstanding design choice, not a COVID pivot. Since the start of the business, the main entrance has been a side door rather than a front-facing main street entrance. Intentional decision to make the place feel hole-in-the-wall, exclusive, homely, rather than a big storefront with signage on main street."}
         ],
         "comparisons": [
-            {"prompt": "Small wellness business vs. Connelly's digital marketing agency: different AI needs?", "notes": ""},
+            {"prompt": "Small wellness business vs. Connelly's digital marketing agency: different AI needs?", "notes": "Connelly is already using AI actively in her work (email automation, ROI prediction, lead qualification). Weis is pre-AI, her problem is more foundational, she needs data connected across business units before any AI layer makes sense. Different stages of the journey entirely."},
             {"prompt": "Owner-operator perspective vs. more corporate/scaled businesses (Mucci, Goldner)", "notes": ""},
-            {"prompt": "How does a brick-and-mortar service business think about tech differently?", "notes": ""}
+            {"prompt": "How does a brick-and-mortar service business think about tech differently?", "notes": "Quick to adopt when forced (COVID), but the ongoing challenge is that brick-and-mortar service businesses generate messier, more fragmented customer data than digital-first businesses. Connelly's marketing agency has clean digital data by nature of the work. Weis has four physical revenue streams with different data capture points, some with membership tracking and some without."}
         ],
         "prepared_questions": [],
-        "conversation_notes": "Spoke with Cyndi for about 10 minutes after the talk. Core insight: her most pressing problem is connecting siloed data across four business units (yoga, juice bar, spa, retail) before any AI layer could be applied. This is exactly the kind of foundational problem an AI implementation consultant would diagnose first.",
-        "conversation_takeaways": "Key consulting insight: the real work starts before AI. Connecting siloed data is the most common blocker, not tool selection. This confirmed the core pitch for AI implementation consulting.",
-        "raw_shorthand": ""
+        "conversation_notes": "Spoke with Cyndi for about 10 minutes after the talk. Core insight: her most pressing problem is connecting siloed data across four business units (yoga, juice bar, spa, retail) before any AI layer could be applied. This is exactly the kind of foundational problem an AI implementation consultant would diagnose first. Secondary insight: she wants to understand customer churn, specifically why people cancel or stop coming, and she has better data on this for class/spa (membership) than retail/juice bar (transactional).",
+        "conversation_takeaways": "Key consulting insight: the real work starts before AI. Connecting siloed data is the most common blocker, not tool selection. This confirmed the core pitch for AI implementation consulting. The churn question adds a second layer, once data is connected, the first high-value AI application would likely be churn prediction/analysis across all four business units.",
+        "raw_shorthand": "Backfilled from memory. Did not have a structured shorthand system ready for this talk.",
+        "universal_answers": {"consultant_fix": "Wants to understand why customers cancel/leave. Specifically, why people stop coming to yoga, stop buying smoothies, stop purchasing retail. Has some ability to follow up via email when members cancel classes or spa treatments, but lacks good data on the retail/juice bar side where drop-off is harder to track."}
     },
     {
         "id": "goldner",
@@ -493,6 +494,87 @@ if selection == "📊 Dashboard":
 
             ws5.column_dimensions["A"].width = 40
             ws5.column_dimensions["B"].width = 80
+
+            # --- Per-Speaker Sheets ---
+            for s in speakers:
+                sheet_name = s["name"][:31]  # Excel sheet names max 31 chars
+                ws = wb.create_sheet(sheet_name)
+
+                # Header info
+                ws.cell(row=1, column=1, value="Speaker").font = header_font
+                ws.cell(row=1, column=1).fill = header_fill
+                ws.cell(row=1, column=2, value=s["name"])
+                ws.cell(row=2, column=1, value="Company").font = Font(bold=True)
+                ws.cell(row=2, column=2, value=s["company"])
+                ws.cell(row=3, column=1, value="Role").font = Font(bold=True)
+                ws.cell(row=3, column=2, value=s["role"])
+                ws.cell(row=4, column=1, value="Date").font = Font(bold=True)
+                ws.cell(row=4, column=2, value=s["date"])
+                ws.cell(row=5, column=1, value="Task Reference").font = Font(bold=True)
+                ws.cell(row=5, column=2, value=s["task_ref"])
+
+                # Company info
+                ci = s.get("company_info", {})
+                ws.cell(row=7, column=1, value="Company Information").font = Font(bold=True, size=12)
+                ws.cell(row=7, column=1).fill = PatternFill(start_color="D6EAF8", end_color="D6EAF8", fill_type="solid")
+                ws.cell(row=7, column=2).fill = PatternFill(start_color="D6EAF8", end_color="D6EAF8", fill_type="solid")
+                ci_row = 8
+                for label, key in [("Industry", "industry"), ("Location", "location"), ("Size", "size"), ("Founded", "founded"), ("Website", "website"), ("Notes", "notes")]:
+                    ws.cell(row=ci_row, column=1, value=label).font = Font(bold=True)
+                    ws.cell(row=ci_row, column=2, value=ci.get(key, ""))
+                    ci_row += 1
+
+                # Shorthand notes
+                ci_row += 1
+                ws.cell(row=ci_row, column=1, value="Shorthand Notes").font = Font(bold=True, size=12)
+                ws.cell(row=ci_row, column=1).fill = PatternFill(start_color="D6EAF8", end_color="D6EAF8", fill_type="solid")
+                ws.cell(row=ci_row, column=2).fill = PatternFill(start_color="D6EAF8", end_color="D6EAF8", fill_type="solid")
+                ci_row += 1
+                ws.cell(row=ci_row, column=1, value=s.get("raw_shorthand", ""))
+                ci_row += 2
+
+                # Universal questions
+                ws.cell(row=ci_row, column=1, value="Universal Questions").font = Font(bold=True, size=12)
+                ws.cell(row=ci_row, column=1).fill = PatternFill(start_color="D5F5E3", end_color="D5F5E3", fill_type="solid")
+                ws.cell(row=ci_row, column=2).fill = PatternFill(start_color="D5F5E3", end_color="D5F5E3", fill_type="solid")
+                ci_row += 1
+                ua = s.get("universal_answers", {})
+                for q in UNIVERSAL_QUESTIONS:
+                    ws.cell(row=ci_row, column=1, value=q["question"]).font = Font(bold=True)
+                    ws.cell(row=ci_row, column=2, value=ua.get(q["id"], ""))
+                    ci_row += 1
+                ci_row += 1
+
+                # Sections with prompts and notes
+                for section_key, section_name, color in [("ai_usage", "AI Usage", "EBF5FB"), ("takeaways", "Key Takeaways", "FEF9E7"), ("comparisons", "Comparisons", "FDEDEC")]:
+                    ws.cell(row=ci_row, column=1, value=section_name).font = Font(bold=True, size=12)
+                    ws.cell(row=ci_row, column=1).fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+                    ws.cell(row=ci_row, column=2).fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
+                    ci_row += 1
+                    ws.cell(row=ci_row, column=1, value="Prompt").font = Font(bold=True, italic=True)
+                    ws.cell(row=ci_row, column=2, value="Notes").font = Font(bold=True, italic=True)
+                    ci_row += 1
+                    for item in s.get(section_key, []):
+                        ws.cell(row=ci_row, column=1, value=item.get("prompt", ""))
+                        ws.cell(row=ci_row, column=2, value=item.get("notes", ""))
+                        ci_row += 1
+                    ci_row += 1
+
+                # Conversation notes if applicable
+                if s.get("has_conversation_task"):
+                    ws.cell(row=ci_row, column=1, value="Conversation Notes").font = Font(bold=True, size=12)
+                    ws.cell(row=ci_row, column=1).fill = PatternFill(start_color="E8DAEF", end_color="E8DAEF", fill_type="solid")
+                    ws.cell(row=ci_row, column=2).fill = PatternFill(start_color="E8DAEF", end_color="E8DAEF", fill_type="solid")
+                    ci_row += 1
+                    ws.cell(row=ci_row, column=1, value="Notes").font = Font(bold=True)
+                    ws.cell(row=ci_row, column=2, value=s.get("conversation_notes", ""))
+                    ci_row += 1
+                    ws.cell(row=ci_row, column=1, value="Key Takeaways").font = Font(bold=True)
+                    ws.cell(row=ci_row, column=2, value=s.get("conversation_takeaways", ""))
+                    ci_row += 1
+
+                ws.column_dimensions["A"].width = 45
+                ws.column_dimensions["B"].width = 65
 
             # Save to buffer and download
             buffer = io.BytesIO()
